@@ -130,7 +130,7 @@ public class DHTServer {
 
             @Override
             public void run() {
-                if (queue.size() <= 0) {
+                if (queue.size() <= dhtServerConfig.getMaxRunFindNodeCount()) {
                     joinDHT();
                 }
             }
