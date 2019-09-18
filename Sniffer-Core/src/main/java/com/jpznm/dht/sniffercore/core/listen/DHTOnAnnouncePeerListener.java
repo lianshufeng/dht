@@ -1,16 +1,16 @@
 package com.jpznm.dht.sniffercore.core.listen;
 
 import com.fast.dev.core.util.bytes.BytesUtil;
-import com.jpznm.dht.sniffercore.core.dao.InfoHashDao;
-import com.jpznm.dht.sniffercore.core.dao.TorrentDao;
 import com.jpznm.dht.sniffercore.core.dht.handler.AnnouncePeerInfoHashWireHandler;
 import com.jpznm.dht.sniffercore.core.dht.listener.OnAnnouncePeerListener;
 import com.jpznm.dht.sniffercore.core.dht.listener.OnMetadataListener;
 import com.jpznm.dht.sniffercore.core.dht.model.Info;
 import com.jpznm.dht.sniffercore.core.dht.model.SubFile;
 import com.jpznm.dht.sniffercore.core.dht.model.Torrent;
-import com.jpznm.dht.sniffercore.core.model.FileModel;
 import com.jpznm.dht.sniffercore.core.util.AddressUtil;
+import com.jpznm.dht.snifferdao.dao.InfoHashDao;
+import com.jpznm.dht.snifferdao.dao.TorrentDao;
+import com.jpznm.dht.snifferdao.model.FileModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,7 +63,7 @@ public class DHTOnAnnouncePeerListener implements OnAnnouncePeerListener {
                 // 入库操作
                 String hash = torrent.getInfo_hash().trim().toLowerCase();
 
-                com.jpznm.dht.sniffercore.core.domain.Torrent torrentEnity = new com.jpznm.dht.sniffercore.core.domain.Torrent();
+                com.jpznm.dht.snifferdao.domain.Torrent torrentEnity = new com.jpznm.dht.snifferdao.domain.Torrent();
                 torrentEnity.setHash(hash);
                 if (torrent.getCreationDate() == null) {
                     torrentEnity.setCreationTime(System.currentTimeMillis());

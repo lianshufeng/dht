@@ -1,4 +1,4 @@
-package com.jpznm.dht.sniffercore.core.dao.extend;
+package com.jpznm.dht.snifferdao.dao.extend;
 
 public interface InfoHashDaoExtend {
 

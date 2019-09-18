@@ -1,4 +1,4 @@
-package com.jpznm.dht.sniffercore.core.model;
+package com.jpznm.dht.snifferdao.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

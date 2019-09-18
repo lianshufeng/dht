@@ -1,10 +1,9 @@
-package com.jpznm.dht.sniffercore.core.dao.impl;
+package com.jpznm.dht.snifferdao.dao.impl;
 
-import ch.qos.logback.core.db.dialect.DBUtil;
 import com.fast.dev.data.mongo.helper.DBHelper;
 import com.fast.dev.data.mongo.util.EntityObjectUtil;
-import com.jpznm.dht.sniffercore.core.dao.extend.TorrentDaoExtend;
-import com.jpznm.dht.sniffercore.core.domain.Torrent;
+import com.jpznm.dht.snifferdao.dao.extend.TorrentDaoExtend;
+import com.jpznm.dht.snifferdao.domain.Torrent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;

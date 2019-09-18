@@ -1,9 +1,8 @@
-package com.jpznm.dht.sniffercore.core.dao.impl;
+package com.jpznm.dht.snifferdao.dao.impl;
 
 import com.fast.dev.data.mongo.helper.DBHelper;
-import com.jpznm.dht.sniffercore.core.dao.extend.InfoHashDaoExtend;
-import com.jpznm.dht.sniffercore.core.domain.InfoHash;
-import net.bytebuddy.asm.Advice;
+import com.jpznm.dht.snifferdao.dao.extend.InfoHashDaoExtend;
+import com.jpznm.dht.snifferdao.domain.InfoHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -31,8 +30,6 @@ public class InfoHashDaoImpl implements InfoHashDaoExtend {
 
         this.mongoTemplate.upsert(query, update, InfoHash.class);
     }
-
-
 
 
 }

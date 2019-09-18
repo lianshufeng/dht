@@ -1,0 +1,47 @@
+#默认端口号
+server:
+  port: 0
+
+
+spring:
+  profiles:
+    active: prod
+
+
+#数据库
+#spring:
+#  data:
+#    mongodb:
+#      database: dht_db
+#      host: 127.0.0.1:27017
+#      username: admin
+#      password: "*****"
+
+
+
+
+
+
+dht:
+  max-good-node-count: 2000
+  max-run-find-node-count: 50
+
+
+#调试或者输出日志
+logging:
+  file: logs/${project.artifactId}.log
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            DispatcherServlet: DEBUG
+        cloud:
+          sleuth: DEBUG
+#    com:
+#      jpznm:
+#        dht:
+#          sniffercore: DEBUG
+
+#debug: true
+#trace: true

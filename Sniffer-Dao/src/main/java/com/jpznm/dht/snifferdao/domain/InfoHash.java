@@ -1,35 +1,37 @@
-package com.jpznm.dht.sniffercore.core.domain;
+package com.jpznm.dht.snifferdao.domain;
 
 import com.fast.dev.data.mongo.domain.SuperEntity;
-import com.jpznm.dht.sniffercore.core.model.FileModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
+/**
+ * @作者 练书锋
+ * @时间 2018年2月28日
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Document
-public class Torrent extends SuperEntity {
+public class InfoHash extends SuperEntity {
 
     @Indexed(unique = true)
     private String hash;
 
-    // 种子创建时间
+
+    // 访问次数
     @Indexed
-    private long creationTime;
+    private int accessCount;
 
-    // 种子的名称
+    // 更新信息的主机
     @Indexed
-    private String name;
+    private String updateHost;
 
-    // 文件列表
-    private FileModel[] files;
+    // 获取总次数
+    @Indexed
+    private long getInfoCount;
 
-    // 占用空间
-    private long size;
 
 }

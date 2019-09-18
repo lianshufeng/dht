@@ -6,11 +6,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan("com.jpznm.dht.sniffercore.core")
-public class SniffercoreApplication extends ApplicationBootSuper {
+@ComponentScan({"com.jpznm.dht.sniffercore.core", "com.jpznm.dht.snifferdao"})
+public class SnifferCoreApplication extends ApplicationBootSuper {
 
     public static void main(String[] args) {
-        ApplicationContext applicationContext = SpringApplication.run(SniffercoreApplication.class, args);
+        ApplicationContext applicationContext = SpringApplication.run(SnifferCoreApplication.class, args);
         //启动服务
         applicationContext.getBean(DHTServer.class).start();
 
