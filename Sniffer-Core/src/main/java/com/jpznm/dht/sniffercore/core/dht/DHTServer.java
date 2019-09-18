@@ -154,8 +154,8 @@ public class DHTServer {
                 BigDecimal time = new BigDecimal(s);
                 double rate = count.divide(time, 2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(60))
                         .doubleValue();
-                String info = String.format("-[ %s ] - [ count : %s ] - [  rate: %s/min ]", TimeUtil.formatTimer(runTime),
-                        infoHashCount, rate);
+                String info = String.format("-[ %s ] - [ count : %s ] - [  rate: %s/min ] - [ nodeCount : %s]", TimeUtil.formatTimer(runTime),
+                        infoHashCount, rate,queue.size());
                 log.info(info);
             }
         }, 1000, 5000);
