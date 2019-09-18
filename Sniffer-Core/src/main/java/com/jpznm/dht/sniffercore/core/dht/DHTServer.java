@@ -107,7 +107,7 @@ public class DHTServer {
     }
 
 
-    @PostConstruct
+    @Autowired
     private void init() {
 
         DatagramChannelFactory factory = new NioDatagramChannelFactory(Executors.newCachedThreadPool());
