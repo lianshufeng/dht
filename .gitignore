@@ -30,5 +30,3 @@ build/
 ### VS Code ###
 .vscode/
 
-### prod ####
-application-prod.yml
