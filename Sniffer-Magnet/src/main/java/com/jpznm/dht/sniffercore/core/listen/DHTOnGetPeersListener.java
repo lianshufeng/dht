@@ -3,7 +3,7 @@ package com.jpznm.dht.sniffercore.core.listen;
 import com.fast.dev.core.util.bytes.BytesUtil;
 import com.jpznm.dht.sniffercore.core.dht.listener.OnGetPeersListener;
 import com.jpznm.dht.sniffercore.core.util.AddressUtil;
-import com.jpznm.dht.snifferdao.dao.InfoHashDao;
+import com.jpznm.dht.snifferdao.dao.MagnetDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import java.net.InetSocketAddress;
 public class DHTOnGetPeersListener implements OnGetPeersListener {
 
     @Autowired
-    private InfoHashDao infoHashDao;
+    private MagnetDao magnetDao;
 
 
     @Override
@@ -30,8 +30,7 @@ public class DHTOnGetPeersListener implements OnGetPeersListener {
         String hash = BytesUtil.binToHex(info_hash).toLowerCase();
         log.debug("hash : " + hash);
         // 保存到数据库里
-        infoHashDao.updateHash(hash, AddressUtil.format(address));
-
+        magnetDao.updateHash(hash, AddressUtil.format(address));
 
     }
 

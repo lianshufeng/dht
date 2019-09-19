@@ -8,7 +8,7 @@ import com.jpznm.dht.sniffercore.core.dht.model.Info;
 import com.jpznm.dht.sniffercore.core.dht.model.SubFile;
 import com.jpznm.dht.sniffercore.core.dht.model.Torrent;
 import com.jpznm.dht.sniffercore.core.util.AddressUtil;
-import com.jpznm.dht.snifferdao.dao.InfoHashDao;
+import com.jpznm.dht.snifferdao.dao.MagnetDao;
 import com.jpznm.dht.snifferdao.dao.TorrentDao;
 import com.jpznm.dht.snifferdao.model.FileModel;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ import java.util.List;
 public class DHTOnAnnouncePeerListener implements OnAnnouncePeerListener {
 
     @Autowired
-    private InfoHashDao infoHashDao;
+    private MagnetDao magnetDao;
 
     @Autowired
     private TorrentDao torrentDao;
@@ -41,7 +41,7 @@ public class DHTOnAnnouncePeerListener implements OnAnnouncePeerListener {
         String ip = address.getAddress().getHostAddress();
         String hash = BytesUtil.binToHex(info_hash).toLowerCase();
         log.info(String.format("[AnnouncePeer] - %s:%s - %s", ip, port, hash));
-        infoHashDao.updateHash(hash, AddressUtil.format(address));
+        magnetDao.updateHash(hash, AddressUtil.format(address));
 
         AnnouncePeerInfoHashWireHandler handler = new AnnouncePeerInfoHashWireHandler();
         initHandler(handler);

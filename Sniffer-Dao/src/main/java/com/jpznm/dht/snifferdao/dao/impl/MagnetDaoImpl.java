@@ -1,15 +1,15 @@
 package com.jpznm.dht.snifferdao.dao.impl;
 
 import com.fast.dev.data.mongo.helper.DBHelper;
-import com.jpznm.dht.snifferdao.dao.extend.InfoHashDaoExtend;
-import com.jpznm.dht.snifferdao.domain.InfoHash;
+import com.jpznm.dht.snifferdao.dao.extend.MagnetDaoExtend;
+import com.jpznm.dht.snifferdao.domain.Magnet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
-public class InfoHashDaoImpl implements InfoHashDaoExtend {
+public class MagnetDaoImpl implements MagnetDaoExtend {
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -28,7 +28,7 @@ public class InfoHashDaoImpl implements InfoHashDaoExtend {
         update.inc("accessCount", 1);
         update.set("updateHost", updateHost);
 
-        this.mongoTemplate.upsert(query, update, InfoHash.class);
+        this.mongoTemplate.upsert(query, update, Magnet.class);
     }
 
 

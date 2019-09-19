@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document
-public class InfoHash extends SuperEntity {
+public class Magnet extends SuperEntity {
 
     @Indexed(unique = true)
     private String hash;
