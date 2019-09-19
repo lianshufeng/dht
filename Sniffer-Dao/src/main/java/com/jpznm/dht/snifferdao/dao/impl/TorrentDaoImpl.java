@@ -4,6 +4,7 @@ import com.fast.dev.data.mongo.helper.DBHelper;
 import com.fast.dev.data.mongo.util.EntityObjectUtil;
 import com.jpznm.dht.snifferdao.dao.extend.TorrentDaoExtend;
 import com.jpznm.dht.snifferdao.domain.Torrent;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -14,6 +15,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.HashSet;
 
+@Slf4j
 public class TorrentDaoImpl implements TorrentDaoExtend {
 
     @Autowired
@@ -24,7 +26,8 @@ public class TorrentDaoImpl implements TorrentDaoExtend {
 
     @Override
     public void update(Torrent torrent) {
-        if (StringUtils.hasText(torrent.getHash())) {
+        log.info("torrent_dao_update : " + torrent.getHash());
+        if (!StringUtils.hasText(torrent.getHash())) {
             return;
         }
 
