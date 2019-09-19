@@ -9,9 +9,9 @@
         <relativePath>../../../super/PParent</relativePath>
     </parent>
     <groupId>com.jpznm.dht</groupId>
-    <artifactId>Sniffer-Core</artifactId>
+    <artifactId>Sniffer-Magnet</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Sniffer-Core</name>
+    <name>Sniffer-Magnet</name>
     <description>Demo project for Spring Boot</description>
 
 
