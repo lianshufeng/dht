@@ -26,6 +26,10 @@ public class SnifferTorrentApplication extends ApplicationBootSuper {
         applicationContext.getBean(TaskManager.class).start();
     }
 
+
+    /**
+     * 载入支持库
+     */
     private static void loadLibs() {
         String os = System.getProperty("os.name");
         if (os.toLowerCase().startsWith("win")) {
@@ -35,6 +39,11 @@ public class SnifferTorrentApplication extends ApplicationBootSuper {
         }
     }
 
+
+    /**
+     * 加载支持库
+     * @param resourceName
+     */
     @SneakyThrows
     private static void addLibs(String resourceName) {
         //解压文件

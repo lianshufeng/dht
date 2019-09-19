@@ -32,10 +32,9 @@ public class DHTHelper {
         sessionManager = new SessionManager();
         SettingsPack sp = new SettingsPack();
 
-        for (String rootNode : dhtServerConfig.getRootNodes()) {
-            sp.setString(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), rootNode);
-        }
-
+		for (String rootNode : this.dhtServerConfig.getRootNodes()) {
+			sp.setString(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), rootNode);
+		}
 
         params = new SessionParams(sp);
         sessionManager.start(params);
@@ -87,6 +86,7 @@ public class DHTHelper {
                     long nodes = sessionManager.stats().dhtNodes();
                     if (currentTotalNode != nodes) {
                         currentTotalNode = nodes;
+                        log.info(String.format("dhtNodes : %s", currentTotalNode));
                     }
                     if (nodes >= dhtServerConfig.getMinNodesCount()) {
                         if (signal.getCount() != 0) {

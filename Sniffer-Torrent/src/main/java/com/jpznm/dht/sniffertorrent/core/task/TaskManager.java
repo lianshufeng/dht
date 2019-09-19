@@ -2,6 +2,7 @@ package com.jpznm.dht.sniffertorrent.core.task;
 
 import com.jpznm.dht.sniffertorrent.core.conf.DHTServerConfig;
 import com.jpznm.dht.sniffertorrent.core.task.impl.Magnet2Torrent;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ import javax.annotation.PreDestroy;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Slf4j
 @Component
 public class TaskManager {
 
