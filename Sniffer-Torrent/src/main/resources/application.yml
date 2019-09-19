@@ -25,6 +25,7 @@ spring:
 dht:
   max-good-node-count: 2000
   max-run-find-node-count: 50
+  rootNodes: "router.utorrent.com:6881,router.bittorrent.com:6881,dht.transmissionbt.com:6881,router.bitcomet.com:6881,dht.aelitis.com:6881"
 
 
 #调试或者输出日志

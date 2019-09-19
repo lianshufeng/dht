@@ -36,6 +36,7 @@ public class DHTHelper {
             sp.setString(settings_pack.string_types.dht_bootstrap_nodes.swigValue(), rootNode);
         }
 
+
         params = new SessionParams(sp);
         sessionManager.start(params);
 

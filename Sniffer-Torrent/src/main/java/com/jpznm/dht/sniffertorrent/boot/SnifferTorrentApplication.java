@@ -12,10 +12,13 @@ import org.springframework.context.annotation.ComponentScan;
 
 import java.io.File;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 
 @ComponentScan({"com.jpznm.dht.sniffertorrent.core", "com.jpznm.dht.snifferdao"})
 public class SnifferTorrentApplication extends ApplicationBootSuper {
+
+
+    private final static String LibtorrentVersion = "1.2.2.0";
+
 
     public static void main(String[] args) {
         loadLibs();
@@ -26,9 +29,9 @@ public class SnifferTorrentApplication extends ApplicationBootSuper {
     private static void loadLibs() {
         String os = System.getProperty("os.name");
         if (os.toLowerCase().startsWith("win")) {
-            addLibs("jlibtorrent.dll");
+            addLibs("jlibtorrent-" + LibtorrentVersion + ".dll");
         } else {
-            addLibs("libjlibtorrent.so");
+            addLibs("libjlibtorrent-" + LibtorrentVersion + ".so");
         }
     }
 
