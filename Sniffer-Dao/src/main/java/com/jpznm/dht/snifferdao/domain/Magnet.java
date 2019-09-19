@@ -31,7 +31,7 @@ public class Magnet extends SuperEntity {
 
     // 获取总次数
     @Indexed
-    private long getInfoCount;
+    private long getCount;
 
 
 }

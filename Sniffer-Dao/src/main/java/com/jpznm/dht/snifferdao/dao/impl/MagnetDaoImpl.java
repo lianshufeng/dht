@@ -4,6 +4,7 @@ import com.fast.dev.data.mongo.helper.DBHelper;
 import com.jpznm.dht.snifferdao.dao.extend.MagnetDaoExtend;
 import com.jpznm.dht.snifferdao.domain.Magnet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -29,6 +30,16 @@ public class MagnetDaoImpl implements MagnetDaoExtend {
         update.set("updateHost", updateHost);
 
         this.mongoTemplate.upsert(query, update, Magnet.class);
+    }
+
+    @Override
+    public Magnet getOnceMagnet() {
+        Query query = new Query();
+        query.with(new Sort(Sort.Direction.ASC, "getCount"));
+        query.limit(1);
+        Update update = new Update();
+        update.inc("getCount", 1);
+        return this.mongoTemplate.findAndModify(query, update, Magnet.class);
     }
 
 

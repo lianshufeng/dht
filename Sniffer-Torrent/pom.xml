@@ -33,24 +33,22 @@
         <dependency>
             <groupId>com.frostwire</groupId>
             <artifactId>jlibtorrent</artifactId>
-            <version>1.2.0.18</version>
+            <version>1.2.0.17</version>
+            <type>jar</type>
         </dependency>
-
-
-
 
 
     </dependencies>
 
+
     <build>
+
+
         <plugins>
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <fork>true</fork>
-                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -60,16 +58,47 @@
                 </executions>
             </plugin>
 
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 输出目录 -->
+                            <outputDirectory>${project.build.outputDirectory}/libs</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <!-- 资源目录 -->
+                                    <directory>${project.basedir}/libs</directory>
+                                    <includes>
+                                        <include>*.*</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>dll</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>so</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>com</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>exe</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>zip</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
+
+
         </plugins>
 
 
-        <!-- properties 取 pom 配置 -->
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
     </build>
 
 </project>

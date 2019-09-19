@@ -20,12 +20,21 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "dht")
 public class DHTServerConfig {
 
-
     //最大的任务数量
-    private int maxRunTaskCount = 200;
+    private int maxRunTaskCount = 50;
+
+    //任务执行完后休息时间
+    private long taskSleepTime = 1000l;
 
     //任务超时
-    private long taskTimeout = 180000;
+    private long taskTimeout = 60000;
+
+    //等待最小的节点数量
+    private long minNodesCount = 10;
+
+    // 默认的路由节点点
+    private final String[] RootNodes = new String[]{"router.bittorrent.com:6881", "dht.transmissionbt.com:6881",
+            "router.utorrent.com:6881", "router.bitcomet.com:6881", "dht.aelitis.com:6881"};
 
 
 }
