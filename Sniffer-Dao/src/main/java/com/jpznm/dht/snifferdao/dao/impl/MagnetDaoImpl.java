@@ -35,7 +35,7 @@ public class MagnetDaoImpl implements MagnetDaoExtend {
     @Override
     public Magnet getOnceMagnet() {
         Query query = new Query();
-        query.with(new Sort(Sort.Direction.ASC, "getCount"));
+        query.with(new Sort(Sort.Direction.ASC, "getCount","createTime"));
         query.limit(1);
         Update update = new Update();
         update.inc("getCount", 1);

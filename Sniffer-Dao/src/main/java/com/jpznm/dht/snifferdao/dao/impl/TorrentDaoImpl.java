@@ -26,10 +26,11 @@ public class TorrentDaoImpl implements TorrentDaoExtend {
 
     @Override
     public void update(Torrent torrent) {
-        log.info("torrent_dao_update : " + torrent.getHash());
         if (!StringUtils.hasText(torrent.getHash())) {
             return;
         }
+
+        log.info("torrent_dao_update : " + torrent.getName());
 
         Query query = new Query().addCriteria(Criteria.where("hash").is(torrent.getHash()));
 

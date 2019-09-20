@@ -52,9 +52,9 @@ public class DHTHelper {
     }
 
     private TorrentReader queryTask(final String magnet) {
-        log.info(String.format("request : %s ", magnet));
+        log.debug(String.format("request : %s ", magnet));
         byte[] data = this.sessionManager.fetchMagnet(magnet, (int) (this.dhtServerConfig.getTaskTimeout() / 1000));
-        log.info(String.format(" [ %s ]   : %s", magnet, data != null));
+        log.debug(String.format(" [ %s ]   : %s", magnet, data != null));
         if (data == null) {
             return null;
         }

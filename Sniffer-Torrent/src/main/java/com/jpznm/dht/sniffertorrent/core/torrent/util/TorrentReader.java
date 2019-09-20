@@ -4,9 +4,8 @@ import com.fast.dev.core.util.bytes.BytesUtil;
 import com.jpznm.dht.sniffertorrent.core.torrent.bcodec.BDecoder;
 import com.jpznm.dht.sniffertorrent.core.torrent.bcodec.BEValue;
 import com.jpznm.dht.sniffertorrent.core.torrent.bcodec.BEncoder;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.URI;
@@ -37,9 +36,9 @@ import java.util.concurrent.*;
  * "http://wiki.theory.org/BitTorrentSpecification#Metainfo_File_Structure">Torrent
  * meta-info file structure specification</a>
  */
+@Slf4j
 public class TorrentReader {
 
-    private static final Logger logger = LoggerFactory.getLogger(TorrentReader.class);
 
     /**
      * Torrent file piece length (in bytes), we use 512 kB.
@@ -228,39 +227,39 @@ public class TorrentReader {
         }
         this.size = size;
 
-        logger.debug("{}-file torrent information:", this.isMultifile() ? "Multi" : "Single");
-        logger.debug("  Torrent name: {}", this.name);
-        logger.debug("  Announced at:" + (this.trackers.size() == 0 ? " Seems to be trackerless" : ""));
+        log.debug("{}-file torrent information:", this.isMultifile() ? "Multi" : "Single");
+        log.debug("  Torrent name: {}", this.name);
+        log.debug("  Announced at:" + (this.trackers.size() == 0 ? " Seems to be trackerless" : ""));
         for (int i = 0; i < this.trackers.size(); i++) {
             List<URI> tier = this.trackers.get(i);
             for (int j = 0; j < tier.size(); j++) {
-                logger.debug("    {}{}", (j == 0 ? String.format("%2d. ", i + 1) : "    "), tier.get(j));
+                log.debug("    {}{}", (j == 0 ? String.format("%2d. ", i + 1) : "    "), tier.get(j));
             }
         }
 
         if (this.creationDate != null) {
-            logger.debug("  Created on..: {}", this.creationDate);
+            log.debug("  Created on..: {}", this.creationDate);
         }
         if (this.comment != null) {
-            logger.debug("  Comment.....: {}", this.comment);
+            log.debug("  Comment.....: {}", this.comment);
         }
         if (this.createdBy != null) {
-            logger.debug("  Created by..: {}", this.createdBy);
+            log.debug("  Created by..: {}", this.createdBy);
         }
 
         if (this.isMultifile()) {
-            logger.debug("  Found {} file(s) in multi-file torrent structure.", this.files.size());
+            log.debug("  Found {} file(s) in multi-file torrent structure.", this.files.size());
             int i = 0;
             for (TorrentFile file : this.files) {
-                logger.debug("    {}. {} ({} byte(s))", new Object[]{String.format("%2d", ++i), file.file.getPath(),
+                log.debug("    {}. {} ({} byte(s))", new Object[]{String.format("%2d", ++i), file.file.getPath(),
                         String.format("%,d", file.size)});
             }
         }
 
-        logger.debug("  Pieces......: {} piece(s) ({} byte(s)/piece)",
+        log.debug("  Pieces......: {} piece(s) ({} byte(s)/piece)",
                 (this.size / this.decoded_info.get("piece length").getInt()) + 1,
                 this.decoded_info.get("piece length").getInt());
-        logger.debug("  Total size..: {} byte(s)", String.format("%,d", this.size));
+        log.debug("  Total size..: {} byte(s)", String.format("%,d", this.size));
     }
 
     /**
@@ -578,9 +577,9 @@ public class TorrentReader {
                                         List<List<URI>> announceList, String createdBy)
             throws InterruptedException, IOException, NoSuchAlgorithmException {
         if (files == null || files.isEmpty()) {
-            logger.info("Creating single-file torrent for {}...", parent.getName());
+            log.info("Creating single-file torrent for {}...", parent.getName());
         } else {
-            logger.info("Creating {}-file torrent {}...", files.size(), parent.getName());
+            log.info("Creating {}-file torrent {}...", files.size(), parent.getName());
         }
 
         Map<String, BEValue> torrent = new HashMap<String, BEValue>();
@@ -700,7 +699,7 @@ public class TorrentReader {
 
         long start = System.nanoTime();
         for (File file : files) {
-            logger.info("Hashing data from {} with {} threads ({} pieces)...",
+            log.info("Hashing data from {} with {} threads ({} pieces)...",
                     new Object[]{file.getName(), threads, (int) (Math.ceil((double) file.length() / pieceLenght))});
 
             length += file.length();
@@ -721,7 +720,7 @@ public class TorrentReader {
                     }
 
                     if (channel.position() / (double) channel.size() * 100f > step) {
-                        logger.info("  ... {}% complete", step);
+                        log.info("  ... {}% complete", step);
                         step += 10;
                     }
                 }
@@ -749,7 +748,7 @@ public class TorrentReader {
         long elapsed = System.nanoTime() - start;
 
         int expectedPieces = (int) (Math.ceil((double) length / pieceLenght));
-        logger.info("Hashed {} file(s) ({} bytes) in {} pieces ({} expected) in {}ms.",
+        log.info("Hashed {} file(s) ({} bytes) in {} pieces ({} expected) in {}ms.",
                 new Object[]{files.size(), length, pieces, expectedPieces, String.format("%.1f", elapsed / 1e6),});
 
         return hashes.toString();

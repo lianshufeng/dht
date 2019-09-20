@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Component
 @Scope("prototype")
@@ -59,8 +60,19 @@ public class Magnet2Torrent implements Runnable {
 
 
     private void next() throws InterruptedException {
-        Thread.sleep(dhtServerConfig.getTaskSleepTime());
+        Thread.sleep(getRandom(dhtServerConfig.getTaskSleepTime(), dhtServerConfig.getTaskSleepTime() * 2));
         taskManager.runTask();
+    }
+
+    /**
+     * 取随机数
+     *
+     * @param min
+     * @param max
+     * @return
+     */
+    private long getRandom(long min, long max) {
+        return new Random().nextInt(Integer.parseInt(String.valueOf(max)) - Integer.parseInt(String.valueOf(min)) + 1) + min;
     }
 
 
