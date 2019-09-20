@@ -30,7 +30,7 @@ public class DHTOnGetPeersListener implements OnGetPeersListener {
         String hash = BytesUtil.binToHex(info_hash).toLowerCase();
         log.debug("hash : " + hash);
         // 保存到数据库里
-        magnetDao.updateHash(hash, AddressUtil.format(address));
+        magnetDao.put(hash, AddressUtil.format(address));
 
     }
 

@@ -1,13 +1,13 @@
 package com.jpznm.dht.sniffertorrent.core.task.impl;
 
 import com.fast.dev.core.util.bytes.BytesUtil;
-import com.jpznm.dht.snifferdao.dao.MagnetDao;
 import com.jpznm.dht.snifferdao.dao.TorrentDao;
 import com.jpznm.dht.snifferdao.domain.Magnet;
 import com.jpznm.dht.snifferdao.domain.Torrent;
 import com.jpznm.dht.snifferdao.model.FileModel;
 import com.jpznm.dht.sniffertorrent.core.conf.DHTServerConfig;
 import com.jpznm.dht.sniffertorrent.core.helper.DHTHelper;
+import com.jpznm.dht.sniffertorrent.core.service.MagnetService;
 import com.jpznm.dht.sniffertorrent.core.task.TaskManager;
 import com.jpznm.dht.sniffertorrent.core.torrent.util.TorrentReader;
 import lombok.SneakyThrows;
@@ -33,13 +33,13 @@ public class Magnet2Torrent implements Runnable {
     private DHTServerConfig dhtServerConfig;
 
     @Autowired
-    private MagnetDao magnetDao;
-
-    @Autowired
     private TorrentDao torrentDao;
 
     @Autowired
     private DHTHelper dhtHelper;
+
+    @Autowired
+    private MagnetService magnetService;
 
 
     @Override
@@ -116,7 +116,7 @@ public class Magnet2Torrent implements Runnable {
      * @return
      */
     private String getHash() {
-        Magnet magnet = this.magnetDao.getOnceMagnet();
+        Magnet magnet = this.magnetService.getOnecMagnet();
         if (magnet == null) {
             return null;
         }

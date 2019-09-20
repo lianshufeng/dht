@@ -41,7 +41,7 @@ public class DHTOnAnnouncePeerListener implements OnAnnouncePeerListener {
         String ip = address.getAddress().getHostAddress();
         String hash = BytesUtil.binToHex(info_hash).toLowerCase();
         log.info(String.format("[AnnouncePeer] - %s:%s - %s", ip, port, hash));
-        magnetDao.updateHash(hash, AddressUtil.format(address));
+        magnetDao.put(hash, AddressUtil.format(address));
 
         AnnouncePeerInfoHashWireHandler handler = new AnnouncePeerInfoHashWireHandler();
         initHandler(handler);

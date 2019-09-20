@@ -33,5 +33,9 @@ public class Magnet extends SuperEntity {
     @Indexed
     private long getCount;
 
+    //需改的session
+    @Indexed
+    private String upSession;
+
 
 }

@@ -2,18 +2,14 @@ package com.jpznm.dht.snifferdao.dao.extend;
 
 import com.jpznm.dht.snifferdao.domain.Magnet;
 
+import java.util.List;
+
 public interface MagnetDaoExtend {
 
 
-    void updateHash(String hash, String ip);
+    void put(String hash, String ip);
 
 
-    /**
-     * 获取一个磁力链
-     *
-     * @return
-     */
-    Magnet getOnceMagnet();
-
+    List<Magnet> getMagnet(int size);
 
 }
