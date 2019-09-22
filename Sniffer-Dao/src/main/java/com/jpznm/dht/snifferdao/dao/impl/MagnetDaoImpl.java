@@ -3,6 +3,7 @@ package com.jpznm.dht.snifferdao.dao.impl;
 import com.fast.dev.data.mongo.helper.DBHelper;
 import com.jpznm.dht.snifferdao.dao.extend.MagnetDaoExtend;
 import com.jpznm.dht.snifferdao.domain.Magnet;
+import com.mongodb.BasicDBObject;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -30,13 +31,11 @@ public class MagnetDaoImpl implements MagnetDaoExtend {
     @Autowired
     private DBHelper dbHelper;
 
-    //缓存
     private Map<String, String> _putCache = new ConcurrentHashMap<>();
 
 
     @Override
     public void put(String hash, String updateHost) {
-        //缓存起来
         this._putCache.put(hash, updateHost);
     }
 
@@ -84,19 +83,21 @@ public class MagnetDaoImpl implements MagnetDaoExtend {
         String upSession = UUID.randomUUID().toString();
 
         Query query = new Query();
+        query.addCriteria(Criteria.where("getCount").lte(10));
         query.with(new Sort(Sort.Direction.ASC, "getCount"));
-        query.limit(size);
 
         Update update = new Update();
         update.set("upSession", upSession);
         update.inc("getCount", 1);
         this.dbHelper.updateTime(update);
 
-        //进行批量修改
-        this.mongoTemplate.updateMulti(query, update, Magnet.class);
+        BulkOperations bulkOperations = this.mongoTemplate.bulkOps(BulkOperations.BulkMode.UNORDERED, Magnet.class);
 
-        //查询修改过的记录
-        return this.mongoTemplate.find(query.addCriteria(Criteria.where("upSession").is(upSession)), Magnet.class);
+        for (int i = 0; i < size; i++) {
+            bulkOperations.updateOne(query, update);
+        }
+        bulkOperations.execute().getModifiedCount();
+        return this.mongoTemplate.find(new Query().addCriteria(Criteria.where("upSession").is(upSession)), Magnet.class);
     }
 
 

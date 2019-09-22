@@ -110,11 +110,7 @@ public class Magnet2Torrent implements Runnable {
         this.torrentDao.update(torrent);
     }
 
-    /**
-     * 获取磁力连接的hash
-     *
-     * @return
-     */
+    //获取hash
     private String getHash() {
         Magnet magnet = this.magnetService.getOnecMagnet();
         if (magnet == null) {

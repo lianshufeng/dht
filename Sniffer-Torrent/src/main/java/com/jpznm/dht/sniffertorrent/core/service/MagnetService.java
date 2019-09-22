@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class MagnetService {
 
 
-    private final static int getDataSize = 500;
+    private final static int maxSize = 500;
 
     @Autowired
     private MagnetDao magnetDao;
@@ -29,9 +29,9 @@ public class MagnetService {
     private Vector<Magnet> magnetCachePool = new Vector<>();
 
 
+
     /**
-     * 获取一条记录
-     *
+     * 获取一个磁力链
      * @return
      */
     @SneakyThrows
@@ -44,24 +44,22 @@ public class MagnetService {
         //阻塞并等待db请求到数据
         CountDownLatch countDownLatch = new CountDownLatch(1);
 
-
         //检查是否查询完成
         checkQueryFinish(countDownLatch);
-
 
         //开始同步数据
         threadQueryMagnet();
 
-
+        //阻塞
         countDownLatch.await();
-        return magnetCachePool.remove(0);
+
+        Magnet magnet = null;
+        if (magnetCachePool.size() > 0) {
+            magnet = magnetCachePool.remove(0);
+        }
+        return magnet;
     }
 
-    /**
-     * 是否可阻塞
-     *
-     * @param countDownLatch
-     */
     private void checkQueryFinish(CountDownLatch countDownLatch) {
         final Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -76,13 +74,11 @@ public class MagnetService {
     }
 
 
-    //同步到数据
     private void threadQueryMagnet() {
-        //启动更新数据的线程
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<Magnet> list = magnetDao.getMagnet(getDataSize);
+                List<Magnet> list = magnetDao.getMagnet(maxSize);
                 log.info("更新数据: " + list.size());
                 if (list != null && list.size() > 0) {
                     magnetCachePool.addAll(list);
