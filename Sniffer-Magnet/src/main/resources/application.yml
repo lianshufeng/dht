@@ -21,7 +21,7 @@ spring:
 #调试或者输出日志
 logging:
   file:
-    path: logs/${project.artifactId}.log
+    name: logs/${project.artifactId}.log
   level:
     org:
       springframework:

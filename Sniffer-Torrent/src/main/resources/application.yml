@@ -34,7 +34,7 @@ logging:
         cloud:
           sleuth: DEBUG
   file:
-    path: logs/${project.artifactId}.log
+    name: logs/${project.artifactId}.log
 #    com:
 #      jpznm:
 #        dht:
