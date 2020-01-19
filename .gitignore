@@ -32,5 +32,4 @@ build/
 
 
 ### 环境配置 ###
-application-prod.yml
 application-dev.yml
