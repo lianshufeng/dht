@@ -3,19 +3,19 @@ server:
   port: 0
 
 
-spring:
-  profiles:
-    active: prod
-
 
 #数据库
-#spring:
-#  data:
-#    mongodb:
-#      database: dht_db
-#      host: 127.0.0.1:27017
-#      username: admin
-#      password: "*****"
+#数据库
+spring:
+  # 当前读取配置文件的类型
+  profiles:
+    active: ${spring.profiles.active}
+  data:
+    mongodb:
+      database: dht_db
+      host: 127.0.0.1:27017
+      username: admin
+      password: "*****"
 
 
 
@@ -25,7 +25,6 @@ dht:
 
 #调试或者输出日志
 logging:
-  file: logs/${project.artifactId}.log
   level:
     org:
       springframework:
@@ -34,6 +33,8 @@ logging:
             DispatcherServlet: DEBUG
         cloud:
           sleuth: DEBUG
+  file:
+    path: logs/${project.artifactId}.log
 #    com:
 #      jpznm:
 #        dht:

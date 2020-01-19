@@ -1,0 +1,11 @@
+#数据库
+spring:
+  data:
+    mongodb:
+      database: dht
+      host: 111.177.32.46
+      username: dht
+      password: FBCZVP0K2lBrVKx4
+
+
+

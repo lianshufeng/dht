@@ -84,7 +84,7 @@ public class MagnetDaoImpl implements MagnetDaoExtend {
 
         Query query = new Query();
         query.addCriteria(Criteria.where("getCount").lte(10));
-        query.with(new Sort(Sort.Direction.ASC, "getCount"));
+        query.with(Sort.by(Sort.Direction.ASC, "getCount"));
 
         Update update = new Update();
         update.set("upSession", upSession);
