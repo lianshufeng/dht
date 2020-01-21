@@ -32,4 +32,9 @@ public class Torrent extends SuperEntity {
     // 占用空间
     private long size;
 
+
+    //写入令牌
+    @Indexed
+    private String writeToken;
+
 }

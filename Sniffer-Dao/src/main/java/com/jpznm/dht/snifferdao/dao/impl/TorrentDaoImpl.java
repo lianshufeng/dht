@@ -6,6 +6,8 @@ import com.jpznm.dht.snifferdao.dao.extend.TorrentDaoExtend;
 import com.jpznm.dht.snifferdao.domain.Torrent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.BulkOperations;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -14,6 +16,8 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.util.StringUtils;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 public class TorrentDaoImpl implements TorrentDaoExtend {
@@ -50,5 +54,21 @@ public class TorrentDaoImpl implements TorrentDaoExtend {
 
         this.mongoTemplate.findAndModify(query, update, options, Torrent.class);
 
+    }
+
+    @Override
+    public List<Torrent> getOnceTorrent(int size) {
+        //操作令牌
+        String uuid = UUID.randomUUID().toString();
+        BulkOperations bulkOperations = this.mongoTemplate.bulkOps(BulkOperations.BulkMode.UNORDERED, Torrent.class);
+        for (int i = 0; i < size; i++) {
+            Query query = Query.query(Criteria.where("writeToken").is(null));
+            query.with(Sort.by(Sort.Direction.ASC, "createTime"));
+            Update update = new Update();
+            update.set("writeToken", uuid);
+            bulkOperations.updateOne(query, update);
+        }
+        bulkOperations.execute();
+        return this.mongoTemplate.find(Query.query(Criteria.where("writeToken").is(uuid)), Torrent.class);
     }
 }
