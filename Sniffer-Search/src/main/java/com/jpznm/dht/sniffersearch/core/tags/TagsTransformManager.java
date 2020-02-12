@@ -49,7 +49,7 @@ public class TagsTransformManager {
 
             //加载处理标签的class
             if (it.getCls() != null) {
-                tagsTransformMap.put(tagName, (TagsTransform) applicationContext.getBean(it.getCls()));
+                tagsTransformMap.put(tagName, applicationContext.getBean(it.getCls()));
             }
         }
 

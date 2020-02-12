@@ -53,6 +53,14 @@
             <version>${commons-lang3.version}</version>
         </dependency>
 
+        <!--thymeleaf 依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
+
 
     </dependencies>
 

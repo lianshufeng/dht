@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="format-detection" content="telphone=no, email=no"/>
+  <meta name="Keywords" content="磁力链,BT,种子,电影,音乐,高清,无码,妹子,找妹子">
+  <meta name="description" content="找电影，找游戏，找寂寞，找妹子，找高清，找高清妹子，找无码的高清妹子，找电影妹子，找啥子..."/>
+
+  <!-- 第三方客户端抓取信息-->
+  <meta itemprop="name" content="金牌找你妹，为您翻遍全世界。"/>
+  <meta itemprop="image" content="images/logo.png" th:href="@{/resources/static/images/log.png}"/>
+  <meta name="description" itemprop="description" content="竭诚为您提供免费的搜索服务"/>
+  <title>金牌找你妹，竭诚为您提供搜索服务。</title>
+  <!-- 引入样式文件 -->
+  <% for (var css in htmlWebpackPlugin.files.css) { %>
+  <link href=".${htmlWebpackPlugin.files.css[css]}" rel="stylesheet"
+        th:href="@{/resources${htmlWebpackPlugin.files.css[css]}}">
+  <% } %>
+  <!-- jquery -->
+  <script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="//cdn.polyfill.io/v1/polyfill.min.js" async defer></script>
+</head>
+<body>
+<!-- 主机地址-->
+<input type="hidden" id="HostUrl" value="http://127.0.0.1:7070/" th:value="@{/}"/>
+<!-- 视图 -->
+<div id="app"></div>
+<!-- 引入依赖js -->
+<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+<script type="text/javascript" src=".${htmlWebpackPlugin.files.chunks[chunk].entry}"
+        th:src="@{/resources${htmlWebpackPlugin.files.chunks[chunk].entry}}"></script>
+<% } %>
+</body>
+</html>

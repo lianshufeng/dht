@@ -19,7 +19,12 @@ spring:
     elasticsearch:
       repositories:
         enabled: true
-
+  thymeleaf:
+    suffix: .html
+    mode: HTML
+    prefix: classpath:/templates/
+    cache: false
+    encoding: UTF-8
 dht:
   max-run-task-count: 200
 
