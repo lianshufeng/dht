@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  springboot:
+    image: lianshufeng/springboot
+    volumes:
+      - "./:/opt/jar"
+    network_mode: host
+    working_dir: /opt/jar
+    container_name: torrent
+    restart: always
+    environment:
+      - CacheResources=http://127.0.0.1/Sniffer-Torrent-0.0.1-SNAPSHOT.jar
+      - ENTRYPOINT=nohup java -Dfile.encoding=UTF-8 -Xmx300m -Xms150m -Duser.timezone=GMT+8 -Dspring.profiles.active=prod -jar Sniffer-Torrent-0.0.1-SNAPSHOT.jar

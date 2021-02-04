@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  springboot:
+    image: lianshufeng/springboot
+    volumes:
+      - "./:/opt/jar"
+    working_dir: /opt/jar
+    container_name: magnet
+    restart: always
+    environment:
+      - CacheResources=http://127.0.0.1/Sniffer-Magnet-0.0.1-SNAPSHOT.jar
+      - ENTRYPOINT=nohup java -Dfile.encoding=UTF-8 -Xmx300m -Xms150m -Duser.timezone=GMT+8 -Dspring.profiles.active=prod -jar Sniffer-Magnet-0.0.1-SNAPSHOT.jar

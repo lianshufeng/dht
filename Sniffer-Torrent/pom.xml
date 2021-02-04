@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.fast.dev</groupId>
+        <artifactId>PParent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../../../super/PParent</relativePath>
+    </parent>
+    <groupId>com.jpznm.dht</groupId>
+    <artifactId>Sniffer-Torrent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>Sniffer-Torrent</name>
+    <description>Demo project for Spring Boot</description>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.fast.dev</groupId>
+            <artifactId>PCore</artifactId>
+            <version>${Project.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.jpznm.dht</groupId>
+            <artifactId>Sniffer-Dao</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <!-- https://github.com/frostwire/frostwire-jlibtorrent -->
+            <groupId>com.frostwire</groupId>
+            <artifactId>jlibtorrent</artifactId>
+            <version>1.2.2.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jlibtorrent-1.2.11.0.jar</systemPath>
+        </dependency>
+
+
+    </dependencies>
+
+
+    <build>
+
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 输出目录 -->
+                            <outputDirectory>${project.build.outputDirectory}/libs</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <!-- 资源目录 -->
+                                    <directory>${project.basedir}/libs</directory>
+                                    <includes>
+                                        <include>*.*</include>
+                                    </includes>
+                                </resource>
+
+
+                            </resources>
+                        </configuration>
+                    </execution>
+
+
+                </executions>
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>dll</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>so</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>com</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>exe</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>zip</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>jar</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
+
+
+        </plugins>
+
+
+    </build>
+
+</project>

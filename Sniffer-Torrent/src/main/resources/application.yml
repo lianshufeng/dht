@@ -1,0 +1,44 @@
+#默认端口号
+server:
+  port: 0
+
+
+
+#数据库
+#数据库
+spring:
+  # 当前读取配置文件的类型
+  profiles:
+    active: ${spring.profiles.active}
+  data:
+    mongodb:
+      database: dht_db
+      host: 127.0.0.1:27017
+      username: admin
+      password: "*****"
+
+
+
+dht:
+  max-run-task-count: 200
+
+
+#调试或者输出日志
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            DispatcherServlet: DEBUG
+        cloud:
+          sleuth: DEBUG
+  file:
+    name: logs/${project.artifactId}.log
+#    com:
+#      jpznm:
+#        dht:
+#          sniffercore: DEBUG
+
+#debug: true
+#trace: true
